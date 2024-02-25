@@ -9,12 +9,12 @@ print(MENU)
 choice = input(">>> ").upper()
 
 
-def caculate_fahrenheit_to_celsius():
+def calculate_fahrenheit_to_celsius():
     global fahrenheit
     fahrenheit = celsius * 9.0 / 5 + 32
 
 
-def caculate_celsius_to_fahrenheit():
+def calculate_celsius_to_fahrenheit():
     global celsius
     celsius = 5 / 9 * (fahrenheit - 32)
 
@@ -22,11 +22,11 @@ def caculate_celsius_to_fahrenheit():
 while choice != "Q":
     if choice == "C":
         celsius = float(input("Celsius: "))
-        caculate_fahrenheit_to_celsius()
+        calculate_fahrenheit_to_celsius()
         print(f"Result: {fahrenheit:.2f} F")
     elif choice == "F":
         fahrenheit = float(input("fahrenheit: "))
-        caculate_celsius_to_fahrenheit()
+        calculate_celsius_to_fahrenheit()
         print(f"Result: {celsius:.2f} F")
 
         # TODO: Write this section to convert F to C and display the result

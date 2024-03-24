@@ -13,11 +13,21 @@ class Guitar:
 
 def get_guitars():
     guitars = []
-    with open('guitars.csv', 'r') as file:
-        for line in file:
-            name, year, cost = line.strip().split(',')
-            guitars.append(Guitar(name, int(year), float(cost)))
+    try:
+        with open('guitars.csv', 'r') as file:
+            for line in file:
+                name, year, cost = line.strip().split(',')
+                guitars.append(Guitar(name, int(year), float(cost)))
+    except FileNotFoundError:
+        print("No existing data file found. Starting with an empty list.")
     return guitars
+
+
+def add_guitar():
+    name = input("Enter the name of the guitar: ")
+    year = int(input("Enter the year of the guitar: "))
+    cost = float(input("Enter the cost of the guitar: "))
+    return Guitar(name, year, cost)
 
 
 def display_guitars(guitars):
@@ -26,12 +36,22 @@ def display_guitars(guitars):
         print(f"Guitar {i}: {guitar}")
 
 
+def write_guitars(guitars):
+    with open('guitars.csv', 'w') as file:
+        for guitar in guitars:
+            file.write(f"{guitar.name},{guitar.year},{guitar.cost}\n")
+
+
 def main():
     guitars = get_guitars()
     display_guitars(guitars)
-    print("\nSorting guitars by year...")
-    guitars.sort()
-    display_guitars(guitars)
+
+    add_more = input("Do you want to add more guitars? (yes/no): ").lower()
+    while add_more == "yes":
+        guitars.append(add_guitar())
+        add_more = input("Do you want to add more guitars? (yes/no): ").lower()
+
+    write_guitars(guitars)
 
 
 if __name__ == "__main__":
